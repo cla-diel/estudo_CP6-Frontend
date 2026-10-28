@@ -1,0 +1,665 @@
+@import "tailwindcss";
+
+@theme {
+  --font-historia: "Fraunces", Georgia, "Times New Roman", serif;
+}
+
+:root {
+  --sill: clamp(155px, 27vh, 260px);
+  --pedra: #1b1a2e;
+  --pedra-clara: #3a3858;
+  --ambar: #f5b94a;
+  --creme: #fff3de;
+  --ponteiro-x: 50vw;
+  --ponteiro-y: 50vh;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: #0d1130;
+  color: var(--creme);
+  font-family: var(--font-historia);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ambar);
+  outline-offset: 3px;
+}
+
+/* ---------- Janela em arco da torre ---------- */
+.arco {
+  border-radius: 999px 999px 0 0;
+  box-shadow:
+    0 0 0 200vmax var(--pedra),
+    inset 0 0 0 10px var(--pedra-clara),
+    inset 0 0 60px rgba(0, 0, 0, 0.45);
+}
+
+.peitoril {
+  background: var(--pedra);
+}
+
+.spotlight {
+  background: radial-gradient(
+    300px circle at var(--ponteiro-x) var(--ponteiro-y),
+    rgba(255, 219, 144, 0.12),
+    rgba(123, 173, 255, 0.055) 38%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 0.25s ease;
+}
+
+.lua-detalhada {
+  background: radial-gradient(
+    ellipse at 29% 26%,
+    rgba(255, 255, 255, 0.98),
+    rgba(239, 242, 255, 0.95) 38%,
+    rgba(204, 214, 244, 0.94) 77%,
+    #aeb8df
+  );
+  box-shadow:
+    0 0 28px 7px rgba(220, 228, 255, 0.48),
+    0 0 92px 24px rgba(174, 190, 255, 0.25),
+    inset -11px -10px 20px rgba(88, 101, 145, 0.34),
+    inset 5px 5px 16px rgba(255, 255, 255, 0.9);
+}
+.lua-cratera {
+  background: rgba(136, 150, 195, 0.23);
+  box-shadow:
+    inset 2px 2px 4px rgba(104, 119, 164, 0.16),
+    1px 2px 3px rgba(255, 255, 255, 0.32);
+}
+.lua-cratera-pequena {
+  background: rgba(115, 129, 177, 0.2);
+}
+.lua-cratera-media {
+  background: rgba(154, 165, 202, 0.22);
+}
+.cidade-noite {
+  filter: none;
+}
+.cidade-noite g:first-of-type {
+  animation: janelas-cintilam 6s ease-in-out infinite alternate;
+}
+
+@keyframes janelas-cintilam {
+  from {
+    opacity: 0.48;
+  }
+  to {
+    opacity: 0.92;
+  }
+}
+
+/* ---------- Animações da coruja ---------- */
+@keyframes respirar {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.018);
+  }
+}
+@keyframes flutuar {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes piscar {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.08);
+  }
+}
+@keyframes balancar {
+  0%,
+  100% {
+    transform: rotate(-0.7deg);
+  }
+  50% {
+    transform: rotate(0.7deg);
+  }
+}
+@keyframes inclinar {
+  0% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(-4deg) translateY(1px);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes bater-asa {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+@keyframes asa-ociosa {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-1.5deg);
+  }
+}
+@keyframes cauda-mover {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+@keyframes chama {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.84, 0.9) rotate(-2deg);
+    filter: drop-shadow(0 0 3px rgba(255, 190, 73, 0.5));
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.12, 1.18) rotate(2deg);
+    filter: drop-shadow(0 0 11px rgba(233, 128, 42, 0.95));
+  }
+  68% {
+    opacity: 0.86;
+    transform: scale(0.94, 1.06) rotate(-1deg);
+    filter: drop-shadow(0 0 6px rgba(252, 163, 67, 0.72));
+  }
+}
+
+.coruja-corpo {
+  transform-origin: 150px 330px;
+  animation: respirar 4.2s ease-in-out infinite;
+}
+.coruja-wrap {
+  animation: none;
+}
+.coruja-cabeca {
+  transform-origin: 150px 240px;
+  animation:
+    inclinar 2.8s ease-in-out 1,
+    balancar 13s ease-in-out 2.8s infinite;
+}
+.coruja-olho {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: piscar 5.5s infinite;
+}
+.asa-esq {
+  transform-origin: 78px 205px;
+}
+.asa-dir {
+  transform-origin: 222px 205px;
+}
+.asa-esq {
+  animation: asa-ociosa 7s ease-in-out infinite;
+}
+.asa-dir {
+  animation: asa-ociosa 7s ease-in-out infinite reverse;
+}
+.coruja-corpo > path:first-child {
+  transform-origin: 150px 310px;
+  animation: cauda-mover 4.5s ease-in-out infinite;
+}
+.coruja-feliz .asa-esq {
+  animation: bater-asa 1.8s ease-in-out infinite;
+}
+.coruja-feliz .asa-dir {
+  animation: bater-asa 1.8s ease-in-out infinite reverse;
+}
+
+/* ---------- Ambiente ---------- */
+@keyframes vagalume {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(18px, -26px);
+    opacity: 0.35;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-10px, -52px);
+    opacity: 0;
+  }
+}
+@keyframes luz-lanterna {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scale(0.9);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+  70% {
+    opacity: 0.72;
+    transform: scale(0.96);
+  }
+}
+@keyframes lua {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    filter: brightness(0.92);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.035);
+    filter: brightness(1.16);
+  }
+}
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes estrela {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+.vagalume {
+  animation: vagalume 9s ease-in-out infinite;
+}
+.luz-lanterna {
+  animation: luz-lanterna 3.2s ease-in-out infinite;
+}
+.lanterna-prendida {
+  filter: drop-shadow(0 2px 4px rgba(15, 12, 22, 0.55));
+}
+.lanterna-prendida {
+  height: 60%;
+}
+.lanterna-corrente {
+  height: auto;
+  bottom: 133px;
+}
+.lanterna-corrente {
+  background: repeating-linear-gradient(
+    to bottom,
+    #86765f 0 3px,
+    #463a33 3px 6px
+  );
+  box-shadow: 0 0 2px rgba(255, 229, 169, 0.35);
+}
+.lanterna-svg {
+  filter: drop-shadow(0 0 9px rgba(255, 185, 78, 0.32));
+}
+.lanterna-chama {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: chama 1.6s ease-in-out infinite;
+}
+.lanterna-fogo-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: luz-lanterna 1.6s ease-in-out infinite;
+  filter: blur(5px);
+}
+.lua {
+  animation: lua 5.5s ease-in-out infinite;
+}
+.aparecer {
+  animation: aparecer 0.7s ease-out both;
+}
+.estrela {
+  animation: estrela 4s ease-in-out infinite;
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Gestos do Owlbert quando a conversa está parada ---------- */
+@keyframes olhar {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  28%,
+  42% {
+    transform: rotate(-6deg);
+  }
+  58%,
+  72% {
+    transform: rotate(6deg);
+  }
+}
+@keyframes sacudir {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  15% {
+    transform: scale(1.04, 0.97) rotate(-2deg);
+  }
+  30% {
+    transform: scale(0.98, 1.03) rotate(2deg);
+  }
+  45% {
+    transform: scale(1.04, 0.97) rotate(-2deg);
+  }
+  60% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+@keyframes pulinho {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  15% {
+    transform: translateY(0) scale(1.06, 0.92);
+  }
+  45% {
+    transform: translateY(-22px) scale(0.96, 1.05);
+  }
+  75% {
+    transform: translateY(0) scale(1.05, 0.94);
+  }
+}
+@keyframes bocejo-olho {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  30%,
+  70% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes bocejo-bico {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0.2);
+  }
+  30%,
+  70% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+@keyframes contente {
+  0%,
+  100% {
+    transform: rotate(-1.2deg) translateY(0);
+  }
+  50% {
+    transform: rotate(1.2deg) translateY(-2px);
+  }
+}
+@keyframes subir {
+  0% {
+    transform: translate(0, 0) scale(0.4);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx, 0px), -110px) scale(1);
+    opacity: 0;
+  }
+}
+
+.gesto-olhar .coruja-cabeca {
+  animation: olhar 5s ease-in-out 1;
+}
+.gesto-penas .asa-esq,
+.gesto-pulinho .asa-esq,
+.gesto-festa .asa-esq {
+  animation: bater-asa 1.1s ease-in-out 2;
+}
+.gesto-penas .asa-dir,
+.gesto-pulinho .asa-dir,
+.gesto-festa .asa-dir {
+  animation: bater-asa 1.1s ease-in-out 2 reverse;
+}
+.gesto-pulinho .coruja-cabeca,
+.gesto-festa .coruja-cabeca {
+  animation: contente 1.8s ease-in-out 2;
+}
+.gesto-bocejo .coruja-olho {
+  animation: bocejo-olho 2.4s ease-in-out 1;
+}
+.bico-aberto {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center top;
+}
+.gesto-bocejo .bico-aberto {
+  animation: bocejo-bico 2.4s ease-in-out 1;
+}
+.gesto-contente .coruja-cabeca {
+  animation: contente 2.2s ease-in-out 2;
+}
+.subir {
+  animation: subir 2.4s ease-out both;
+}
+
+.tem-tres-opcoes {
+  --sill: clamp(190px, 25vh, 250px);
+}
+.tem-quatro-opcoes {
+  --sill: clamp(210px, 32vh, 300px);
+}
+.tem-muitas-opcoes {
+  --sill: clamp(270px, 39vh, 360px);
+}
+
+.respostas-zona {
+  box-sizing: border-box;
+  padding: 10px 6px 22px;
+}
+.respostas-opcoes {
+  flex: 0 0 auto;
+  width: min(100%, 840px);
+  margin-inline: auto;
+  align-content: center;
+}
+.respostas-tres {
+  grid-template-rows: repeat(3, auto);
+}
+.respostas-quatro {
+  grid-template-rows: repeat(2, auto);
+}
+.respostas-varias {
+  grid-auto-rows: auto;
+}
+.respostas-opcoes > button {
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(54px, 7vh, 72px);
+  height: auto;
+  padding: 11px clamp(12px, 1.5vw, 22px);
+  font-size: clamp(16px, 1.2vw, 20px);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.botao-final {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 560px);
+  min-height: clamp(72px, 9vh, 92px);
+  margin-inline: auto;
+  padding: 16px 28px;
+  text-align: center;
+  font-size: clamp(22px, 1.8vw, 30px);
+  line-height: 1.2;
+}
+
+.resposta-input {
+  width: min(100%, 840px);
+  min-height: clamp(54px, 7vh, 72px);
+  margin-inline: auto;
+}
+.resposta-input > input,
+.botao-resposta-input {
+  min-height: clamp(54px, 7vh, 72px);
+  font-size: clamp(16px, 1.2vw, 20px);
+}
+.resposta-input > input {
+  padding-inline: clamp(14px, 1.5vw, 22px);
+}
+.botao-resposta-input {
+  padding-inline: clamp(22px, 2.2vw, 32px);
+}
+
+.flores-torre {
+  height: 150px;
+  bottom: calc(var(--sill) - 25px);
+}
+.arranjo-flor {
+  filter: drop-shadow(0 3px 4px rgba(12, 12, 24, 0.26));
+}
+
+@media (min-width: 768px) {
+  .lanterna-prendida {
+    height: 72%;
+    width: 132px;
+  }
+  .lanterna-corrente {
+    bottom: 197px;
+    width: 5px;
+  }
+  .lanterna-svg {
+    height: 190px;
+    width: 132px;
+  }
+  .lanterna-chama {
+    animation: chama 1.45s ease-in-out infinite;
+  }
+  .lanterna-fogo-glow {
+    animation-duration: 1.4s;
+    filter: blur(6px);
+  }
+  .vaso-flores {
+    height: 182px;
+    width: 164px;
+  }
+}
+
+.continuar-mais-alto {
+  position: relative;
+  top: calc(-1 * clamp(36px, 8vh, 88px));
+}
+
+@media (max-width: 640px) {
+  :root {
+    --sill: clamp(142px, 25vh, 195px);
+  }
+  .tem-tres-opcoes {
+    --sill: clamp(240px, 43vh, 340px);
+  }
+  .tem-quatro-opcoes {
+    --sill: clamp(210px, 37vh, 300px);
+  }
+  .tem-muitas-opcoes {
+    --sill: clamp(310px, 46vh, 390px);
+  }
+  .arco {
+    box-shadow:
+      0 0 0 200vmax var(--pedra),
+      inset 0 0 0 7px var(--pedra-clara),
+      inset 0 0 40px rgba(0, 0, 0, 0.45);
+  }
+  .coruja-stage {
+    height: min(34vh, 270px) !important;
+  }
+  .respostas-zona {
+    padding: 10px 6px 22px;
+  }
+  .respostas-opcoes > button {
+    min-height: 54px;
+    padding: 10px 14px;
+    font-size: clamp(16px, 4.2vw, 19px);
+  }
+  .vaso-flores {
+    height: 125px;
+    width: 112px;
+  }
+  .flores-torre {
+    height: 125px;
+    bottom: calc(var(--sill) - 23px);
+    opacity: 0.95;
+  }
+  .spotlight {
+    background-size: 210px 210px;
+    opacity: 0.72;
+  }
+}
+
+@media (max-height: 620px) {
+  :root {
+    --sill: 132px;
+  }
+  .tem-tres-opcoes {
+    --sill: 240px;
+  }
+  .tem-quatro-opcoes {
+    --sill: 220px;
+  }
+  .tem-muitas-opcoes {
+    --sill: 310px;
+  }
+  .coruja-stage {
+    height: min(32vh, 220px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight {
+    transition: none;
+  }
+}
